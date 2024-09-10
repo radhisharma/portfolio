@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Portfolio</title>
+    <style>
+        /* Internal CSS for styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #f4f4f9;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #000;
+            color: #ff6600;
+            text-align: center;
+            padding: 2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+
+        /* .designs {
+            background-color: #ede6e1;
+        } */
+
+        header.scrolled {
+            background-color: #333;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            margin-top: 1rem;
+        }
+
+        .nav-links a {
+            margin: 0 1rem;
+            color: #ff6600;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        .container {
+            padding: 3rem;
+            max-width: 1200px;
+            margin: auto;
+            margin-top: 80px; /* To avoid overlap with fixed header */
+        }
+
+        .section {
+            margin-bottom: 5rem;
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: #ff6600;
+            border-bottom: 3px solid #ff6600;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .about img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin-right: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .about img:hover {
+            transform: scale(1.1);
+        }
+
+        
+       
+
+        .about p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            flex: 1;
+        }
+
+        .skills, .designs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skills .skill {
+            background-color: #333;
+            color: #ff6600;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 8px;
+            width: 30%;
+            transform: translateX(50px);
+            opacity: 0;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        }
+
+        .skills .skill.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .designs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .designs img {
+            width: 30%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transform: translateX(-50px);
+            opacity: 0;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+            
+            
+        }
+
+        .designs img.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .certificates a {
+            display: inline-block;
+            background-color: #ff6600;
+            color: white;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .certificates a:hover {
+            background-color: #cc5200;
+        }
+
+        .contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .contact form {
+            width: 100%;
+            max-width: 600px;
+            background: #333;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact form input, .contact form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background: #1a1a1a;
+            color: #f4f4f9;
+        }
+
+        .contact form button {
+            background-color: #ff6600;
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .contact form button:hover {
+            background-color: #cc5200;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: #000;
+            color: #ff6600;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Keyframes for animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your Name</h1>
+        <div class="nav-links">
+            <a href="#about">About Me</a>
+            <a href="#skills">Skills</a>
+            <a href="#designs">Designs</a>
+            <a href="#certificates">Certificates</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="about section" id="about">
+            <h2>About Me</h2>
+            <div class="about">
+                <img src="your-photo.jpg" alt="Your Photo">
+                <p>Hello, I am Radhika. I am a motivated and detail-oriented entry-level software developer with a passion for creating innovative, user-centered software solutions. Skilled in problem-solving, effective communication, and collaborating with cross-functional teams. With a strong foundation in Java and an interest in data structures and algorithms, I aim to build efficient and reliable software solutions.</p>
+            </div>
+        </section>
+
+        <section class="skills section" id="skills">
+            <h2>Skills</h2>
+            <div class="skills">
+                <div class="skill">
+                    <h3>Java</h3>
+                    <p>Proficient in Java development for building efficient software solutions.</p>
+                </div>
+                <div class="skill">
+                    <h3>DSA</h3>
+                    <p>Solid understanding of Data Structures and Algorithms for problem-solving.</p>
+                </div>
+                <div class="skill">
+                    <h3>Web Development</h3>
+                    <p>Experience in building responsive and intuitive web applications.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="designs section" id="designs">
+            <h2>Designs</h2>
+            <div class="designs">
+                <img src="design1.jpg" alt="Design 1" >
+                <img src="design2.jpg" alt="Design 2">
+                <img src="design3.jpg" alt="Design 3">
+            </div>
+        </section>
+
+        <section class="certificates section" id="certificates">
+            <h2>Certificates</h2>
+            <p>Here are some of the certificates I have earned during my school and professional career:</p>
+            <a href="https://drive.google.com" target="_blank">View My Certificates</a>
+        </section>
+        <section class="contact section" id="contact">
+            <h2>Contact Me</h2>
+            <div class="contact">
+                <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Radhika. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for scroll animations and smooth scrolling
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+
+            function onScroll() {
+                const scrollPosition = window.scrollY + window.innerHeight;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (scrollPosition > sectionTop + sectionHeight / 4) {
+                        section.classList.add('visible');
+                    } else {
+                        section.classList.remove('visible');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', onScroll);
+            onScroll();
+
+            // Change header color on scroll
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            const links = document.querySelectorAll('.nav-links a');
+
+            links.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const section = document.querySelector(this.getAttribute('href'));
+                    section.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
